@@ -77,7 +77,32 @@ function docker_constainer_bash() {
     CONTAINER="$1"
   fi
   docker exec -it $CONTAINER bash
+}
 
+function docker_container_restart_attach() {
+  CONTAINER=""
+  if [ -z "$1" ]
+  then
+    echo "no container specifies. Exiting"
+    return 0
+  else
+    CONTAINER="$1"
+  fi
+  docker restart $CONTAINER
+  docker attach $CONTAINER
+}
+
+function docker_container_command() {
+  CONTAINER=""
+  if [ -z "$1" ]
+  then
+    echo "no container specifies. Exiting"
+    return 0
+  else
+    CONTAINER="$1"
+    COMMAND="$2"
+  fi
+  docker exec -it $CONTAINER $2
 }
 
 # docker-machine shortcuts
@@ -88,3 +113,6 @@ alias dmrc="docker_machine_regenerate_certs $1"
 # docker shortcuts
 alias dcl="docker_constainer_list"
 alias dcb="docker_constainer_bash $1"
+alias dcs="docker_constainer_bash $1"
+alias dcra="docker_container_restart_attach $1"
+alias dcc="docker_container_command $1 $2"
