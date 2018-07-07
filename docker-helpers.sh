@@ -76,7 +76,7 @@ function docker_constainer_bash() {
   else
     CONTAINER="$1"
   fi
-  docker exec -it $CONTAINER bash
+  docker exec -it $CONTAINER sh 
 }
 
 function docker_container_restart_attach() {
